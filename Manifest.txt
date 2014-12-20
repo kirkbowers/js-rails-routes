@@ -1,0 +1,2 @@
+lib/js-rails-routes.rb
+bin/js-rails-routes

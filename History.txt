@@ -1,0 +1,4 @@
+=== 0.1.0 / 2014-12-19
+
+* First iteration at this gem.  Rather naively reads the results of +rake routes+ and
+produces its best guess at the corresponding +_path+ functions in javascript.

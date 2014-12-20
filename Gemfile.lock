@@ -1,0 +1,9 @@
+GEM
+  specs:
+    execjs (2.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  execjs
