@@ -1,83 +1,83 @@
-= js-rails-routes
+# js-rails-routes
 
-https://github.com/kirkbowers/js-rails-routes
+[https://github.com/kirkbowers/js-rails-routes](https://github.com/kirkbowers/js-rails-routes)
 
-== Description
+## Description
 
-+js-rails-routes+ is a utility for generating javascript equivalents to the +<route>_path+
-functions provided by {Ruby on Rails}[https://github.com/rails/rails].  This allows you
-to do very similar things in your +ejs+ javascript templates as you would in your +erb+
+`js-rails-routes` is a utility for generating javascript equivalents to the `<route>_path`
+functions provided by [Ruby on Rails](https://github.com/rails/rails).  This allows you
+to do very similar things in your `ejs` javascript templates as you would in your `erb`
 ruby templates.  You can move html rendering to the client and keep it looking very 
 similar to how it would look on the server.
 
-For example, if you have a model +Item+ and a simple route to list all the items, a link
-to that items page (using an explicit +a+ anchor tag instead of the Rails +link_to+)
-would look the same in either an +erb+ file or an +ejs+ file:
+For example, if you have a model `Item` and a simple route to list all the items, a link
+to that items page (using an explicit `a` anchor tag instead of the Rails `link_to`)
+would look the same in either an `erb` file or an `ejs` file:
 
     <a href="<%= items_path() %>">List all Items</a>
 
 
-== Usage
+## Usage
 
-To use +js-rails-routes+, first install it:
+To use `js-rails-routes`, first install it:
 
     [sudo] gem install js-rails-routes
     
-=== Command Line
+### Command Line
     
 Most likely you will want to run it on the command line, like so:
 
     js-rails-routes
   
 which will dump the generated javascript to stdout.  Or, if you are in the base directory
-of a Ruby on Rails project that already has a directory +app/assets/javascripts+ 
+of a Ruby on Rails project that already has a directory `app/assets/javascripts` 
 defined, you can run:
 
     js-rails-routes --output
     
-This will produce (*clobber*) the file +app/assets/javascripts/routes.js+.
+This will produce (**clobber**) the file `app/assets/javascripts/routes.js`.
     
 You will then want to make sure the asset pipeline picks up the routes file.  Inside 
-your +application.js+:
+your `application.js`:
 
     //= require routes
     
     
-=== Inside of Ruby
+### Inside of Ruby
     
-You can use it inside of a Ruby program by passing a +String+ to the initializer of the 
-+js-rails-routes::Routes+ object and calling +create_javascript+:
+You can use it inside of a Ruby program by passing a `String` to the initializer of the 
+`js-rails-routes::Routes` object and calling `create_javascript`:
 
     require 'js-rails-routes'
 
     result = js-rails-routes::Routes.new(text).create_javascript
     
-== Using the Resulting JavaScript
+## Using the Resulting JavaScript
 
 In all the examples below, I assume using the client-side framework 
-MVCoffee[https://github.com/kirkbowers/mvcoffee].  For one, it provides client-side
+[MVCoffee](https://github.com/kirkbowers/mvcoffee).  For one, it provides client-side
 models that closely mirror Rails models.  For two, it provides the Rails-style 
-+link_to+ helper function for creating anchor links.
+`link_to` helper function for creating anchor links.
 
-=== Simple Routes with no Parameters
+### Simple Routes with no Parameters
 
 The simplest case is a route that does not depend on a parameter.  Suppose we have this
 simple route:
 
     items              /items
     
-In your javascript +ejs+ template, you can do this:
+In your javascript `ejs` template, you can do this:
 
     <%= link_to("Show all items", items_path() ) %>
     
-=== Route with one Parameter
+### Route with one Parameter
 
 Frequently a route depends on the id of a model, either to display that one entity or to
 edit it.  For example, given this route:
 
     edit_item          /item/:id/edit
     
-You can either supply an integer as an argument for the +id+:
+You can either supply an integer as an argument for the `id`:
 
     <%= link_to("Edit item number 42", edit_item_path(42) ) %>
     
@@ -85,7 +85,7 @@ Or you can provide a hash-like object literal, calling the parameter by name:
 
     <%= link_to("Edit item number 42", edit_item_path( { id: 42 } ) ) %>
     
-=== Route with two or more Parameters
+### Route with two or more Parameters
 
 If you have more than one parameter in a route, you can either supply the parameters in the order in which they appear in the route, or as a named hash-like object literal.  For example, given this route:
 
@@ -99,20 +99,20 @@ Or this:
 
     <%= link_to("Cat 1, item 2", catalog_item_path( { catalog_id: 1, id: 2 } ) ) %>
 
-== Dependencies
+## Dependencies
 
-+js-rails-routes+ depends on {Ruby on Rails}[https://github.com/rails/rails].
+`js-rails-routes` depends on [Ruby on Rails](https://github.com/rails/rails).
 
-It also depends on by hoe[https://github.com/seattlerb/hoe] and
-shoulda[https://github.com/thoughtbot/shoulda] for development and testing.
+It also depends on by [hoe](https://github.com/seattlerb/hoe) and
+[shoulda](https://github.com/thoughtbot/shoulda) for development and testing.
 
-Since hoe[https://github.com/seattlerb/hoe] uses a +README.txt+ file in rdoc format when 
-publishing a gem, and github displays a +README.md+ file in markdown format, this gem uses
-rdoc2md[https://github.com/kirkbowers/rdoc2md] to autogenerate the markdown file from 
-the rdoc file.  +README.txt+ is the master. *Do not edit +README.md+ by hand!*  In order 
-to generate the markdown file, run +rake readme+.
+Since [hoe](https://github.com/seattlerb/hoe) uses a `README.txt` file in rdoc format when 
+publishing a gem, and github displays a `README.md` file in markdown format, this gem uses
+[rdoc2md](https://github.com/kirkbowers/rdoc2md) to autogenerate the markdown file from 
+the rdoc file.  `README.txt` is the master. **Do not edit `README.md` by hand!**  In order 
+to generate the markdown file, run `rake readme`.
 
-== Developers/Contributing
+## Developers/Contributing
 
 After checking out the source, run:
 
@@ -127,8 +127,8 @@ find a shortcoming, by all means, feel free to upgrade it.  I welcome all contri
 
 I do prefer that such shortcomings be documented first in the Issues.  I may be working on a fix already.  No sense in two people fixing the same thing....
 
-I use the Git Flow development methodology.  If you'd like to contribute, you should fork the +develop+ branch and create a 'feature' subbranch.
+I use the Git Flow development methodology.  If you'd like to contribute, you should fork the `develop` branch and create a 'feature' subbranch.
 
-== License
+## License
 
-+js-rails-routes+ is released under the MIT license.  
+`js-rails-routes` is released under the MIT license.  
