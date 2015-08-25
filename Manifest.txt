@@ -1,2 +1,3 @@
 lib/js-rails-routes.rb
+lib/js-rails-routes/js/link_to.js
 bin/js-rails-routes

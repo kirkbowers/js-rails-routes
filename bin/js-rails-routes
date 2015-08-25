@@ -23,12 +23,17 @@ js-rails-routes [flags]
         The idea behind requiring you to explicitly type "--output" is to protect 
         against accidentally blowing away an old routes.js file, as this _will_ 
         overwrite it if one exists.
+      --no-link-to
+        By default this utility produces a function named "link_to" that mimics a
+        simplified version of the Rails method by the same name.  This flag supresses
+        creating that function.
 EOF
 
   abort
 end
 
 to_file = false
+do_link_to = true
 
 until ARGV.empty?
   arg = ARGV.shift
@@ -36,6 +41,8 @@ until ARGV.empty?
     usage
   elsif arg == '--output'
     to_file = true
+  elsif arg == '--no-link-to'
+    do_link_to = false
   else
     usage
   end
@@ -60,4 +67,4 @@ text.gsub!(/\r\n?/, "\n")
 # Get rid of the header
 text.sub!(/\A[^\n]+\n/, '')
 
-out.puts JsRailsRoutes::Routes.new(text).create_javascript
+out.puts JsRailsRoutes::Routes.new(text).create_javascript(do_link_to)
