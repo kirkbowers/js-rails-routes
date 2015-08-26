@@ -6,7 +6,7 @@ https://github.com/kirkbowers/js-rails-routes
 
 +js-rails-routes+ is a utility for generating javascript equivalents to the +<route>_path+
 functions provided by {Ruby on Rails}[https://github.com/rails/rails].  This allows you
-to do very similar things in your +ejs+ javascript templates as you would in your +erb+
+to do very similar things in your {+ejs+}[https://rubygems.org/gems/ejs/] javascript templates as you would in your +erb+
 ruby templates.  You can move html rendering to the client and keep it looking very 
 similar to how it would look on the server.
 
@@ -42,6 +42,7 @@ your +application.js+:
 
     //= require routes
     
+Be default, the generated javascript will also contain a fairly simple implementation of the function +link_to+.  If you do not wish to have this function added to the global namespace, you can suppress it with the command line flag +--no-link-to+.
     
 === Inside of Ruby
     
@@ -55,9 +56,9 @@ You can use it inside of a Ruby program by passing a +String+ to the initializer
 == Using the Resulting JavaScript
 
 In all the examples below, I assume using the client-side framework 
-MVCoffee[https://github.com/kirkbowers/mvcoffee].  For one, it provides client-side
-models that closely mirror Rails models.  For two, it provides the Rails-style 
-+link_to+ helper function for creating anchor links.
+MVCoffee[https://github.com/kirkbowers/mvcoffee].  It provides client-side
+models that closely mirror Rails models.  The examples will assume the existence of
+these client models.
 
 === Simple Routes with no Parameters
 
@@ -85,6 +86,11 @@ Or you can provide a hash-like object literal, calling the parameter by name:
 
     <%= link_to("Edit item number 42", edit_item_path( { id: 42 } ) ) %>
     
+Since MVCoffee models are themselves hash-like objects, if you have a variable +item+ 
+holding the model entity with id = 42, you can do this:
+
+    <%= link_to("Edit item number 42", edit_item_path( item ) ) %>
+    
 === Route with two or more Parameters
 
 If you have more than one parameter in a route, you can either supply the parameters in the order in which they appear in the route, or as a named hash-like object literal.  For example, given this route:
@@ -98,6 +104,11 @@ For catalog number 1, item number 2, you can do this:
 Or this:
 
     <%= link_to("Cat 1, item 2", catalog_item_path( { catalog_id: 1, id: 2 } ) ) %>
+    
+Or this (assuming the variable +item+ is a model with both fields +id+ and +catalog_id+
+set):
+
+    <%= link_to("Cat 1, item 2", catalog_item_path( item ) ) %>
 
 == Dependencies
 
