@@ -121,7 +121,7 @@ Since hoe[https://github.com/seattlerb/hoe] uses a +README.txt+ file in rdoc for
 publishing a gem, and github displays a +README.md+ file in markdown format, this gem uses
 rdoc2md[https://github.com/kirkbowers/rdoc2md] to autogenerate the markdown file from 
 the rdoc file.  +README.txt+ is the master. *Do not edit +README.md+ by hand!*  In order 
-to generate the markdown file, run +rake readme+.
+to generate the markdown file, run +rake README.md+.
 
 == Developers/Contributing
 

@@ -18,15 +18,21 @@ Hoe.spec "js-rails-routes" do
   license "MIT" # this should match the license in the README
 end
 
-task :readme do
-  readme = File.open("README.txt").read
-  File.open('README.md', 'w') do |file| 
-    file.write(Rdoc2md::Document.new(readme).to_md)
-  end
+desc 'Compile CoffeeScript files into JavaScript and copy into the lib directory'
+task :coffee do
+  puts "Compiling CoffeeScript files"
+  sh 'coffee -b -c coffee/*.coffee'
+  cp Dir.glob('coffee/*.js'), 'lib/js-rails-routes/js/'
 end
 
-task :md2html, [:readme] do
-  `Markdown.pl README.md > README.html`
-end
+desc 'Build the gem and install it locally'
+task :build => [:coffee, :gem, :install_gem]
+
+desc 'Build the gem, install it locally, and test it'
+Rake::Task[:default].prerequisites.clear
+task :default => [:build, :test]
+
+desc 'Builds the gem, tests it, and generates the README.md file.  Do before checking in!'
+task :all => [:build, 'README.md', :test]
 
 # vim: syntax=ruby
