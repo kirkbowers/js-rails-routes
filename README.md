@@ -1,12 +1,14 @@
 # js-rails-routes
 
-[https://github.com/kirkbowers/js-rails-routes](https://github.com/kirkbowers/js-rails-routes)
+[Source](https://github.com/kirkbowers/js-rails-routes)
+
+[Full Documentation](http://mvcoffee.org/js-rails-routes)
 
 ## Description
 
-`js-rails-routes` is a utility for generating javascript equivalents to the `<route>_path`
+`js-rails-routes` is a utility for generating JavaScript equivalents to the `<route>_path`
 functions provided by [Ruby on Rails](https://github.com/rails/rails).  This allows you
-to do very similar things in your [`ejs`](https://rubygems.org/gems/ejs/) javascript templates as you would in your `erb`
+to do very similar things in your [`ejs`](https://rubygems.org/gems/ejs/) JavaScript templates as you would in your `erb`
 ruby templates.  You can move html rendering to the client and keep it looking very 
 similar to how it would look on the server.
 
@@ -16,6 +18,7 @@ would look the same in either an `erb` file or an `ejs` file:
 
     <a href="<%= items_path() %>">List all Items</a>
 
+This gem was originally developed as part of the [MVCoffee](http://mvcoffee.org) suite of tools, and integrates strongly with the [mvcoffee.js](https://github.com/kirkbowers/mvcoffee) CoffeeScript MVC framework.
 
 ## Usage
 
@@ -47,11 +50,11 @@ Be default, the generated javascript will also contain a fairly simple implement
 ### Inside of Ruby
     
 You can use it inside of a Ruby program by passing a `String` to the initializer of the 
-`js-rails-routes::Routes` object and calling `create_javascript`:
+`JsRailsRoutes::Routes` object and calling `create_javascript`:
 
     require 'js-rails-routes'
 
-    result = js-rails-routes::Routes.new(text).create_javascript
+    result = JsRailsRoutes::Routes.new(text).create_javascript
     
 ## Using the Resulting JavaScript
 
