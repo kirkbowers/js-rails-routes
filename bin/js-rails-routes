@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require 'js-rails-routes'
+
+def usage
+  puts <<EOF
+js-rails-routes [flags]
+
+    Run this command from the base directory of a Ruby on Rails project.
+    It will inspect the routes for the Rails project and generate a javascript file
+    that will add all the [route_name]_path functions to the global namespace.
+    By default, the generated javascript is output to stdout.
+    
+    Flags:
+      --help
+        Displays this message
+      --output
+        Writes the generated javascript to the file:
+        app/assets/javascripts/routes.js
+        This operation will fail if you are not in the base directory of a Rails project.
+        In other words, it does not try to create the subdirectories 
+        app/assets/javascripts, so will fail if it can not find them.
+        The idea behind requiring you to explicitly type "--output" is to protect 
+        against accidentally blowing away an old routes.js file, as this _will_ 
+        overwrite it if one exists.
+      --no-link-to
+        By default this utility produces a function named "link_to" that mimics a
+        simplified version of the Rails method by the same name.  This flag supresses
+        creating that function.
+EOF
+
+  abort
+end
+
+to_file = false
+do_link_to = true
+
+until ARGV.empty?
+  arg = ARGV.shift
+  if arg == '--help'
+    usage
+  elsif arg == '--output'
+    to_file = true
+  elsif arg == '--no-link-to'
+    do_link_to = false
+  else
+    usage
+  end
+end
+
+out = STDOUT
+
+if to_file
+  begin
+    out = File.open("app/assets/javascripts/routes.js", "w")
+  rescue
+    STDERR.puts "You must be in the base directory of a Rails project in order to output"
+    STDERR.puts "to a file!!!"
+    abort
+  end
+end
+  
+text = `rake routes`
+# Protect against goofy carriage returns on non-unix systems
+text.gsub!(/\r\n?/, "\n")
+
+# Get rid of the header
+text.sub!(/\A[^\n]+\n/, '')
+
+out.puts JsRailsRoutes::Routes.new(text).create_javascript(do_link_to)
