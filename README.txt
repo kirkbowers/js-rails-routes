@@ -1,6 +1,6 @@
 = js-rails-routes
 
-{Source}[https://github.com/kirkbowers/js-rails-routes]
+https://github.com/kirkbowers/js-rails-routes
 
 {Full Documentation}[http://mvcoffee.org/js-rails-routes]
 
